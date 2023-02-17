@@ -9,31 +9,52 @@ import { createStore } from 'vuex'
 const store = createStore({
     state () {
       return {
-        count: 0,
-        
+      
+        taskComplete:false,
+        // todos:[],
+
         todoList:[{
             id:1,
             heading:"Buy Food",
-            title:'Today at 9:30 am'
+            title:'Today at 9:30 am',
+            istaskComplete:false
         },
         {
             id:2,
             heading:"Denner with fried",
-            title:'Today at 10:30 am'
+            title:'Today at 10:30 am',
+            istaskComplete:true
         },
         {
             id:3,
             heading:"watch viedo",
-            title:'Today at 3:10 am'
+            title:'Today at 3:10 am',
+            istaskComplete:false
         }]
       }
     },
     mutations: {
-      increment (state) {
-        state.count++
-      }
+      setTodo (state,data) {
+        console.log('inside mutations ')
+        //state.todoList=[...state.todoList,data]
+        state.todoList.push(data)
+        console.log(todoList)
+      },
+    },
+   
+     actions : {
+
+      updateTodo(context,data) {
+        console.log('inside action ')
+        console.log(data);
+        context.commit('setTodo',data)
+      },
     }
+
+
   })
+
+  
 
 const app = createApp(App)
 // app.use(router)

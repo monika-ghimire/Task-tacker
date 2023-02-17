@@ -1,15 +1,17 @@
 <script >
+import CompleteTask from '../view/complete-task.vue'
 import Newtodo from '../view/newtodo.vue'
 import Todayview from '../view/todayview.vue'
 import Wether from '../view/wether.vue'
 
 export default{
-  components: { Newtodo, Wether, Todayview},
+  components: { Newtodo, Wether, Todayview, CompleteTask},
 
   data(){
   return{
     tab:"todo",
     active: true,
+    bgTab:"light"
   }
    
   },
@@ -32,13 +34,28 @@ export default{
 
       <div class=" gap-10   flex pl-5">
         <div class="todo-nav  tab"  :class="{ active: tab === 'todo' }" @click="tab ='todo'" >Todo</div>
-        <p class=" ">Complete Task</p>
-        <!-- @click="tab = 'todo'" -->
+        <p class="  tab" :class="{ active: tab === 'Complete-Task' }" @click="tab ='Complete-Task'">Complete Task</p>
+        
       </div>
 
       <div class=" float-right gap-4">
-        <p class="float-right pr-2">dark </p>
-        <p class="float-right pr-7">prof</p>
+
+        <div class="float-right pr-2">
+          <button  @click="bgTab='light'" >
+            <i class='fas fa-circle' v-if="bgTab=== 'dark'"></i>
+          </button>
+
+          <button @click="bgTab='dark'" >
+            <i class='far fa-circle'   v-if="bgTab=== 'light' "></i>
+          </button>
+          
+      
+        </div>
+        
+         
+        <button class="float-right pr-7">
+          <i class="fa fa-user-circle" style="font-size:24px"></i>
+        </button>
  
       </div>
     </nav>
@@ -49,9 +66,12 @@ export default{
                 <div class="side-nav tab" :class="{ active: tab == 'today' }" @click="tab = 'today'" >Today </div>
                 <div class="side-nav tab" :class="{ active: tab == 'weather' }" @click="tab = 'weather'">weather </div>
                 <p class="setting-button  "  v-if="tab ==='todo'">setting</p>
+
+                
             </div>
 
-            <div class=" content  col-start-3 col-end-7 ">
+               
+            <div class="   col-start-3 col-end-7 ">
                 
                 <div v-if="tab ==='today'">
                     <Todayview/>
@@ -62,6 +82,11 @@ export default{
              
                 <div  v-if="tab ==='weather'">
                     <Wether/>
+                </div>
+
+                <div v-if="tab === 'Complete-Task'">
+                  <CompleteTask/>
+
                 </div>
 
              
@@ -81,7 +106,8 @@ export default{
 }
 .navBar {
   background: white;
-   height: 40px;
+  height: 45px;
+    padding: 9px 11px;
   border-radius: 10px ;
   top:10%;
  
@@ -91,42 +117,20 @@ export default{
     font:bold;
     font-size: 1.1em;
     border:5px soild #1d0930;
-   
+  
+  }
+  .tab{
+    font:200
 
   }
-.content{
-    background: white;
-    margin-top:3%;
-    padding:3%;
-    padding-top: 1%;
-    border-radius: 3%;
 
-}
 h1 {
   color: #9333ea;
 }
 p{
     color: rgb(105, 105, 105);
 }
-/* .todo-nav{
-  color: #9333ea;
 
-}
-.todo:hover{
-    background: #dfc1fa;;
-    color: white;
-    border-radius: 10px;
-    padding-left: 2%;
-
-
-}
-.todo:hover .title{
-    color: #9333ea;
-}
-.todo:hover .icon-three-dot{
-    right: 4%;
-    top: 35px;
-} */
 .side-nav{
     padding: 10px;
     border-radius:5px;
