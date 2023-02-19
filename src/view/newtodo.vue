@@ -1,109 +1,186 @@
-
 <template>
-    <div class="content">
-        <div class=" todo   p-10 pt-2 pl-0 relative" v-for="i in  todos" :key="i.id" 
-        >
-
-                    <h5 class="heading font-semibold text-2xl  tab" @click="markAsComplete(i.id)">{{ i.heading }}</h5>
-                    <p class="title text-slate-400 tab"  :class="{ workDone: tab == i.id }">{{ i.title }}</p>
-                    <p class="icon-three-dot">i </p>
-                </div>
-
-                <div class="flex">
-                     <input placeholder="add todo.."  
-                     v-model="text" class="mt-5 p-2 bg-slate-100 rounded w-full"/>
-                     <button  class="checkBtn" @click="newtodoAdd(text)">✅</button>
-                </div>
-          
+  <div class="content-new-todo">
+    <div class="todo p-10 pt-2 pl-0 relative" v-for="i in todos" :key="i.id">
+      <h5
+        class="heading font-semibold text-2xl tab"
+        
+        @click="markAsComplete(i.id)"
+      >
+        {{ i.heading }}
+      </h5>
+      <p class="title text-slate-400" >{{ i.title }}</p>
     </div>
+
+    <div class="flex input-for-add-todo">
+      <input
+        placeholder="add todo.."
+        v-model="text"
+        class="add-todo-input mt-5 p-2 rounded w-full"
+      />
+      <button class="checkBtn" @click="newtodoAdd(text)">✅</button>
+    </div>
+  </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 import { mapActions } from "vuex";
-export default{
-   
-data(){
-    return{
-        workDone:true,
-        tab:0,
+export default {
+  data() {
+    return {
+      workDone: false,
+      tab: 0,
+
+      sendtodo: [
+        {
+          heading: "",
+          istaskComplete: false,
+         
+        },
        
-        sendtodo:[{
-            heading:'',
-            istaskComplete:false,
-            
-        }]
-    }
-},
-computed: mapState({
-    todos:state=>state.todoList
-}),
-methods:{
-    ...mapActions( ['updateTodo']),
-    markAsComplete(id){
-        console.log(id)
+      ],
+      setAsCompleteTask : [
+            {
+                id:null
+            }
+        ]
+    };
+  },
+  computed: mapState({
+    todos: (state) => state.todoList,
+
+  }),
+
+  
+  mounted() {
+ 
+  },
+  methods: {
+    ...mapActions(["updateTodo",'setasCompeletedTask']),
+
+    markAsComplete(id) {
+      this.workDone = true;
+      this.setAsCompleteTask.id=id
+      console.log(" skjdhsakdhaksjdhas");
+      console.log(id);
+      this.setasCompeletedTask(id)
+  
+
     },
-    newtodoAdd(text){
-        this.sendtodo.heading=text
-        this.updateTodo(this.sendtodo)
 
-        console.log("data send from componet")
-        console.log(this.sendtodo)
+    newtodoAdd(text) {
+      this.sendtodo.heading = text;
+      this.updateTodo(this.sendtodo);
 
-        // console.log("data come after sending from component")
-        // console.log(this.updateTodo)
-
-
-    }
-}
-}
+      console.log("data send from componet");
+      console.log(this.sendtodo);
+    },
+  },
+};
 </script>
 
 <style scoped>
-.content{
-    background: white;
-    margin-top:3%;
-    padding:3%;
-    padding-top: 1%;
-    border-radius: 3%;
-
+.content-new-todo {
+  background: white;
+  margin-top: 3%;
+  padding: 3%;
+  padding-top: 1%;
+  border-radius: 3%;
+  height: 290px;
+  overflow-y: scroll;
 }
 
+.input-for-add-todo {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  bottom: 0px;
+}
+.checkBtn {
+  cursor: pointer;
+  position: absolute;
+  margin-top: 28px;
+  right: 20px;
+}
+.add-todo-input {
+  width: 502px;
+  background: linear-gradient(
+    8deg,
+    rgb(249, 205, 236) 0%,
+    rgb(245, 212, 242) 20%,
+    rgb(214, 214, 250) 68%
+  );
+}
 
-
-.tab.workDone{
-   color: rgb(117, 181, 20);
+.classActive {
+  color: rgb(117, 181, 20);
 }
 
 h1 {
   color: #9333ea;
 }
-p{
-    color: rgb(105, 105, 105);
+p {
+  color: rgb(51, 50, 50);
 }
-.todo-nav{
+::placeholder {
+  color: rgb(65, 63, 63);
+  opacity: 1; /* Firefox */
+}
+.todo-nav {
   color: #9333ea;
+}
+.todo:hover {
+  color: white;
+  border-radius: 10px;
+  padding-left: 2%;
 
+  background: linear-gradient(
+    8deg,
+    rgb(255, 184, 234) 0%,
+    rgb(245, 180, 241) 20%,
+    rgb(180, 180, 249) 68%
+  );
 }
-.todo:hover{
-    background: #dfc1fa;;
-    color: white;
-    border-radius: 10px;
-    padding-left: 2%;
-
-
+.todo:hover .title {
+  color: #9333ea;
 }
-.todo:hover .title{
-    color: #9333ea;
-}
-.todo:hover .icon-three-dot{
-    right: 4%;
-    top: 35px;
-}
-.icon-three-dot{
-    position: absolute;
-    right: 0px;
-    top: 22px;
+.todo:hover .icon-three-dot {
+  right: 4%;
+  top: 35px;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    148deg,
+    hsla(317, 90%, 88%, 1) 0%,
+    hsla(304, 60%, 81%, 1) 20%,
+    hsla(240, 100%, 89%, 1) 68%
+  );
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    148deg,
+    rgb(248, 160, 223) 0%,
+    rgb(232, 157, 227) 20%,
+    rgb(166, 166, 246) 68%
+  );
+}
+
+@media only screen and (max-width: 600px) {
+  .content-new-todo {
+    width: 320px;
+  }
+}
 </style>

@@ -11,7 +11,7 @@ export default{
 </script>
 
 <template>
-  <div class="bg p-10 grid grid-cols-9  ">
+  <div class="bg p-10 lg:grid lg:grid-cols-9  ">
    
    <div class="heading col-start-1 col-end-4" >
     <h1 class="font-bold text-6xl">Taskr <span class="ui-higlight">UI</span> </h1>
@@ -36,7 +36,7 @@ export default{
     hsla(240, 100%, 89%, 1) 68%
 
   );
-  height:650px;
+
 
 }
 .heading{
@@ -45,4 +45,40 @@ export default{
 .ui-higlight{
   color: #9333EA;
 }
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+
+  .heading{
+    margin-top: 5%;
+  }
+  .bg {
+ 
+
+height: 660px;
+}
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+
+
+  .heading{
+    margin-top: 5%;
+  }
+}
+
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+ 
+  .heading{
+    margin-top: 55%;
+  }
+  .bg{
+    height: 650px;
+  }
+}
+
+
 </style>

@@ -21,7 +21,7 @@ const store = createStore({
         },
         {
             id:2,
-            heading:"Denner with fried",
+            heading:"Dinner with fried",
             title:'Today at 10:30 am',
             istaskComplete:true
         },
@@ -40,15 +40,46 @@ const store = createStore({
         state.todoList.push(data)
         console.log(todoList)
       },
+
+      updateTaskStatus(state,id)
+      {
+        console.log("we are inside mutaion update task")
+
+        let new_updated=state.todoList.map((item)=>{
+          if(item.id==id)
+          {
+            return {
+              ...state.todoList,istaskComplete:true
+            };
+          }
+
+          return state.todoList;
+        })
+
+        console.log("testttttt");
+        console.log(new_updated);
+        state.todoList=new_updated;
+
+        console.log(" the value of state is ");
+        console.log(state.todoList)
+      }
     },
    
      actions : {
 
       updateTodo(context,data) {
-        console.log('inside action ')
-        console.log(data);
+        // console.log('inside action ')
+        // console.log(data);
         context.commit('setTodo',data)
+
       },
+
+      setasCompeletedTask(context,id){
+        console.log('inside action passing id ')
+        console.log(id);
+        context.commit('updateTaskStatus',id)
+
+      }
     }
 
 

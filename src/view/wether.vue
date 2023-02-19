@@ -122,7 +122,7 @@ margin-top: 17px;
 .location-box .date {
 color: #fff;
 font-size: 14px;
-    font-weight: 600;
+font-weight: 600;
 text-align: center;
 }
 

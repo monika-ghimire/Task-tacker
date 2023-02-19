@@ -1,6 +1,6 @@
 
 <template>
-    <div class="content">
+    <div class="content-compelet">
         <div class=" todo   p-10 pt-2 pl-0 relative" v-for="i in  todos" :key="i.id">
 
        
@@ -34,7 +34,7 @@ methods:{
 </script>
 
 <style scoped>
-.content{
+.content-compelet{
     background: white;
     margin-top:3%;
     padding:3%;
@@ -78,6 +78,14 @@ p{
 }
 .title{
     color: green;
+
+}
+
+@media only screen and (max-width: 600px) {
+  *{color: red;}
+  .content-compelet{
+    width: 30px;
+  }
 
 }
 
